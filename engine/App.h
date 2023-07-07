@@ -3,14 +3,13 @@
 
 #include "SDL.h"
 #include "SDL_video.h"
-#include "defs.h"
 
 namespace koe {
 
     class App {
     private:
         bool running;
-        int windowFlags{}, rendererFlags{};
+        bool fullscreen{};
         SDL_Window *window{};
         SDL_Renderer *renderer{};
     public:
@@ -21,6 +20,7 @@ namespace koe {
         void OnLoop();
         void OnRender();
         void OnCleanup();
+        void ToggleFullscreen();
     };
 
 }

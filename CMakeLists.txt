@@ -7,6 +7,6 @@ set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
 include_directories(${PROJECT_SOURCE_DIR}/include/SDL2)
 link_directories(${PROJECT_SOURCE_DIR}/lib)
 
-add_executable(KOE main.cpp engine/App.cpp engine/App.h engine/defs.h)
+add_executable(KOE main.cpp engine/App.cpp engine/App.h)
 
 target_link_libraries(KOE mingw32 SDL2main SDL2)
