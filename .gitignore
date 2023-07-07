@@ -11,3 +11,4 @@ CTestTestfile.cmake
 _deps
 ﻿cmake-build-debug
 lib
+cmake-build-debug
