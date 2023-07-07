@@ -1,7 +1,7 @@
-#include <iostream>
+#include <SDL.h>
+#include "engine/App.h"
 
-int main()
-{
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+int main(int argc, char* argv []) {
+    koe::App app;
+    return app.OnExecute();
 }
