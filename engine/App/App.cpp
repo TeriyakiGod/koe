@@ -1,17 +1,17 @@
-#include <iostream>
 #include "App.h"
 
 namespace koe {
 
-    App::App() {
-        running = true;
-    }
+    App::App() : running(true), window("Koe", 640, 420), renderer(window) {}
+
+    App::~App() {}
 
     int App::OnExecute() {
         if (!OnInit()) {
             printf("Error initializing application: %s\n", SDL_GetError());
             return -1;
         }
+
         SDL_Event Event;
 
         const int loopDelay = 1000 / 20;  // Delay for 20fps (in milliseconds)
@@ -56,21 +56,6 @@ namespace koe {
             return false;
         }
 
-        window = SDL_CreateWindow(
-                "Koe",
-                SDL_WINDOWPOS_UNDEFINED,
-                SDL_WINDOWPOS_UNDEFINED,
-                640,
-                420,
-                0
-        );
-        if (!window) return false;
-
-        SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
-
-        renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-        if (!renderer) return false;
-
         return true;
     }
 
@@ -80,35 +65,21 @@ namespace koe {
         }
         else if (event->type == SDL_KEYDOWN && event->key.keysym.sym == SDLK_f) {
             // Toggle fullscreen when 'f' key is pressed
-            ToggleFullscreen();
-        }
-    }
-
-    void App::ToggleFullscreen() {
-        fullscreen = !(SDL_GetWindowFlags(window) & SDL_WINDOW_FULLSCREEN_DESKTOP);
-
-        // Toggle fullscreen mode
-        if (!fullscreen) {
-            SDL_SetWindowFullscreen(window, 0);  // Switch to windowed mode
-        }
-        else {
-            SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);  // Switch to fullscreen mode
+            window.ToggleFullscreen();
         }
     }
 
     void App::OnLoop() {
+        // Game loop
 
     }
 
     void App::OnRender() {
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-        SDL_RenderClear(renderer);
-        SDL_RenderPresent(renderer);
+        renderer.Render();
     }
 
     void App::OnCleanup() {
-        SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(window);
         SDL_Quit();
     }
-}
+
+} // namespace koe
