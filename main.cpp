@@ -1,7 +1,9 @@
-#include <SDL.h>
-#include "engine/App/App.h"
+#include "engine/Engine.h"
+#include "game/Test.cpp"
 
-int main(int argc, char* argv []) {
-    koe::App app;
-    return app.OnExecute();
+auto WinMain(int argc, char* argv[]) -> int {
+    koe::Engine engine;
+    game::Test test;
+    engine.AddGameBehaviour(&test);
+    return engine.OnExecute();
 }
