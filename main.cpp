@@ -7,3 +7,4 @@ auto WinMain(int argc, char* argv[]) -> int {
     engine.AddGameBehaviour(&test);
     return engine.OnExecute();
 }
+

@@ -1,20 +1,28 @@
-#ifndef DEBUG_H_
-#define DEBUG_H_
+#ifndef DEBUG_H
+#define DEBUG_H
 
+#include <chrono>
 #include "GameBehaviour.h"
-#include "GLFW/glfw3.h"
+#include "textrenderer.h"
 
-class Debug : public koe::GameBehaviour {
-private:
-    int frameCount;
-    double timeCount;
-    double fps;
-public:
-    Debug();
+namespace koe {
 
-    void OnStart() override;
-    void OnUpdate() override;
-    void OnRender() override;
-};
+    class Debug : public GameBehaviour {
+    public:
+        Debug(TextRenderer& textRenderer);
 
-#endif // DEBUG_H_
+        void OnStart() override;
+        void OnUpdate() override;
+        void OnRender() override;
+        void OnCleanup() override;
+
+    private:
+        TextRenderer& textRenderer;
+        std::chrono::steady_clock::time_point startTime;
+        int frameCount;
+        float fps;
+    };
+
+} // namespace koe
+
+#endif // DEBUG_H

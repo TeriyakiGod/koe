@@ -2,6 +2,8 @@
 
 namespace koe {
 
+    bool Window::fullscreen = false;
+
     Window::Window(const std::string& title) {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
@@ -12,11 +14,20 @@ namespace koe {
             exit(EXIT_FAILURE);
         }
         glfwMakeContextCurrent(window);
+        if (gladLoadGLLoader((GLADloadproc)glfwGetProcAddress) == 0)
+        {
+            printf("Failed to initialize OpenGL context\n");
+            exit(EXIT_FAILURE);
+        }
         glfwSwapInterval(1);
-        fullscreen = false;
+
+        textRenderer = new TextRenderer(R"(F:\Projects\KOE\engine\fonts\vcr.ttf)", 48, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+
+        printf("%s\n", glGetString(GL_VERSION));
     }
 
     Window::~Window() {
+        delete textRenderer;
         glfwDestroyWindow(window);
     }
 
@@ -38,13 +49,16 @@ namespace koe {
 
     void Window::OnRender(std::vector<GameBehaviour *> behaviours) {
         glfwGetFramebufferSize(window, &framebufferWidth, &framebufferHeight);
-        ratio = framebufferWidth / (float) framebufferHeight;
         glViewport(0, 0, framebufferWidth, framebufferHeight);
         glClear(GL_COLOR_BUFFER_BIT);
         for (GameBehaviour* behaviour : behaviours) {
             behaviour->OnRender();
         }
         glfwSwapBuffers(window);
+    }
+
+    TextRenderer *Window::getTextRenderer() const {
+        return textRenderer;
     }
 
 } // namespace koe

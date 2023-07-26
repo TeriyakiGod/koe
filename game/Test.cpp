@@ -1,5 +1,6 @@
+#include <glad/glad.h>
+
 #include "../engine/GameBehaviour.h"
-#include "GLFW/glfw3.h"
 namespace game {
     class Test : public koe::GameBehaviour {
         double rotationAngle = 0.0;

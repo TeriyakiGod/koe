@@ -1,13 +1,16 @@
 #ifndef KOE_ENGINE_H
 #define KOE_ENGINE_H
 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include <vector>
 #include "Window.h"
 #include "GameBehaviour.h"
-#include "GLFW/glfw3.h"
 #include <chrono>
 #include <thread>
-
+#include "ft2build.h"
+#include FT_FREETYPE_H
+#include "Debug.h"
 
 namespace koe {
 
@@ -20,6 +23,7 @@ namespace koe {
     private:
         static bool running;
         Window* window;
+        Debug* debug;
         std::vector<GameBehaviour*> gameBehaviours;
 
         bool OnInit();

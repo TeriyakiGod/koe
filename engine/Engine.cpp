@@ -19,7 +19,8 @@ namespace koe {
         if (glfwInit() == GLFW_FALSE){ return false; }
         window = new Window("KO Engine");
         glfwSetWindowCloseCallback(window->getWindow(), close_callback);
-        running = true;
+        debug = new Debug(*(window->getTextRenderer()));
+        AddGameBehaviour(debug);
         return true;
     }
 

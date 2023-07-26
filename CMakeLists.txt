@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.25)
 project(KOE)
 
+add_library(glad STATIC external/src/glad.c)
+
 include_directories(${PROJECT_SOURCE_DIR}/external/include)
 link_directories(${PROJECT_SOURCE_DIR}/external/lib)
 
@@ -23,8 +25,12 @@ add_executable(
         engine/Level.h
         engine/GameBehaviour.h
         game/Test.cpp
+        engine/TextRenderer.cpp
+        engine/TextRenderer.h
         engine/Debug.cpp
         engine/Debug.h
+        engine/Shader.cpp
+        engine/Shader.h
 )
 
-target_link_libraries(KOE opengl32 glfw3dll freetype)
+target_link_libraries(KOE opengl32 glfw3dll freetype glad)
