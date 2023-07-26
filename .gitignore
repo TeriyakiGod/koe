@@ -14,3 +14,4 @@ cmake-build-debug
 share
 bin
 include
+external
